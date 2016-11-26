@@ -2,19 +2,30 @@ package sociallockinvite.anything.com.sociallock.View;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import sociallockinvite.anything.com.sociallock.DAL.GroupDAL;
 import sociallockinvite.anything.com.sociallock.Interface.DashboardSwitcherListener;
 import sociallockinvite.anything.com.sociallock.R;
 
 public class GroupDashboard extends Fragment {
     private DashboardSwitcherListener mCallback;
 
+    private GroupDAL mGroupDAL;
+
     public GroupDashboard() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mGroupDAL = new GroupDAL();
     }
 
     @Override
@@ -29,7 +40,7 @@ public class GroupDashboard extends Fragment {
         btnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mGroupDAL.broadcastLockRequest("-KXV0xX8eKLQVHO5BgLh", "Hello World");
             }
         });
 
