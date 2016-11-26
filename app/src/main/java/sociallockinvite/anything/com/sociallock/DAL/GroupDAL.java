@@ -76,7 +76,7 @@ public class GroupDAL {
                 });
     }
 
-    public void broadcastLockRequest(boolean unlock) {
+    public void broadcastLockRequest(final boolean unlock) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://indra151096.com/")
                 .build();
@@ -88,12 +88,13 @@ public class GroupDAL {
         if (userAuth != null) {
             final String userId = userAuth.getUid();
             DatabaseReference userRef = mUsers.child(userId);
-            final String message = (unlock ? "Unlock" : "Lock") + " request from " + userId;
 
-            userRef.child("group").addListenerForSingleValueEvent(new ValueEventListener() {
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    final String groupId = dataSnapshot.getValue(String.class);
+                    final String groupId = dataSnapshot.child("group").getValue(String.class);
+                    final String email = dataSnapshot.child("email").getValue(String.class);
+                    final String message = (unlock ? "Unlock" : "Lock") + " request from " + email;
 
                     Call<ResponseBody> result = service.sendLockRequest(groupId, message);
 
