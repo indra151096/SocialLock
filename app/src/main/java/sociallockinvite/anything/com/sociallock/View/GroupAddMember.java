@@ -7,16 +7,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import sociallockinvite.anything.com.sociallock.DAL.GroupDAL;
 import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.Interface.DashboardSwitcherListener;
 import sociallockinvite.anything.com.sociallock.R;
+import sociallockinvite.anything.com.sociallock.integrated.MyApplication;
 
-public class GroupAddMember extends Fragment {
+public class GroupAddMember extends Fragment implements CompoundButton.OnCheckedChangeListener {
     private UserDAL mUserDAL;
     private GroupDAL mGroupDAL;
+    private Switch sFamily;
 
     private EditText mTxtEmail;
 
@@ -42,6 +47,9 @@ public class GroupAddMember extends Fragment {
         final View btnAddMember = view.findViewById(R.id.btnAddMember);
         final View btnSignOut = view.findViewById(R.id.btnSignOut);
         final View btnDashboard = view.findViewById(R.id.btnDashboard);
+
+        sFamily = (Switch) view.findViewById(R.id.sFamily);
+        sFamily.setOnCheckedChangeListener(this);
 
         mTxtEmail = ((EditText) view.findViewById(R.id.txtEmail));
 
@@ -78,6 +86,19 @@ public class GroupAddMember extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement DashboardSwitcherListener");
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            Toast.makeText(getActivity(), "Family Mode Started", Toast.LENGTH_SHORT).show();
+            MyApplication.beaconConnect();
+        }
+        else
+        {
+            Toast.makeText(getActivity(), "Family Mode Stopped", Toast.LENGTH_SHORT).show();
+            MyApplication.beaconStop();
         }
     }
 }

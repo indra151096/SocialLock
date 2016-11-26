@@ -1,6 +1,7 @@
 package sociallockinvite.anything.com.sociallock.View;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -11,6 +12,9 @@ import android.view.View;
 
 import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.R;
+import sociallockinvite.anything.com.sociallock.integrated.MyApplication;
+import sociallockinvite.anything.com.sociallock.integrated.ok;
+import sociallockinvite.anything.com.sociallock.integrated.scan;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -122,7 +126,10 @@ public class LockRequest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Yes accept");
-
+                startService(new Intent(LockRequest.this, scan.class));
+                MyApplication.beaconStop();
+                Intent i = new Intent(getApplicationContext(), ok.class);
+                startActivity(i);
 
                 finish();
             }
