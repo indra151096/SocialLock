@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="sociallockinvite.anything.com.sociallock"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sociallockinvite.anything.com.sociallock">
 
     <application
         android:allowBackup="true"
@@ -10,11 +10,13 @@
         android:theme="@style/AppTheme">
         <activity android:name=".View.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.hostLock" />
+        <activity android:name=".View.active"></activity>
     </application>
 
 </manifest>
