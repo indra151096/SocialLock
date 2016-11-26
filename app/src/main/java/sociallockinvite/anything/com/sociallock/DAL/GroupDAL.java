@@ -76,29 +76,48 @@ public class GroupDAL {
                 });
     }
 
-    public void broadcastLockRequest(String topic, String message) {
+    public void broadcastLockRequest(final String message) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://indra151096.com/")
                 .build();
 
-        SocialLockService service = retrofit.create(SocialLockService.class);
+        final SocialLockService service = retrofit.create(SocialLockService.class);
 
-        Call<ResponseBody> result = service.sendLockRequest(topic, message);
+        FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
 
-        result.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "Sent HTTP POST request");
-                } else {
-                    Log.w(TAG, "Sent HTTP POST request --- not successful");
+        if (userAuth != null) {
+            final String userId = userAuth.getUid();
+            DatabaseReference userRef = mUsers.child(userId);
+
+            userRef.child("group").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String groupId = dataSnapshot.getValue(String.class);
+
+                    Call<ResponseBody> result = service.sendLockRequest(groupId, message);
+
+                    result.enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()) {
+                                Log.d(TAG, "Sent HTTP POST request --- " + groupId);
+                            } else {
+                                Log.w(TAG, "Sent HTTP POST request --- not successful");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }

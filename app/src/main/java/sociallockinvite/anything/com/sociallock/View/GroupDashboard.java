@@ -40,7 +40,7 @@ public class GroupDashboard extends Fragment {
         btnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGroupDAL.broadcastLockRequest("-KXV0xX8eKLQVHO5BgLh", "Hello World");
+                mGroupDAL.broadcastLockRequest("Hello World");
             }
         });
 
