@@ -4,20 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by zzyzy on 26/11/2016.
+ * Group POJO class
+ *
+ * Copyright (C) 2016 Zhen Zhi Lee
+ * Written by Zhen Zhi Lee (leezhenzhi@gmail.com)
+ *
+ * POJO class for Group
  */
 
 public class Group {
-    private String name;
+    private String id;
     private String host;
     private Map<String, Boolean> members = new HashMap<>();
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getHost() {
@@ -36,13 +41,17 @@ public class Group {
         this.members = members;
     }
 
-    public void addMember(String memberName)
-    {
-        members.put(memberName, true);
+    public void addMember(User user) {
+        if (user.getId().isEmpty()) {
+            throw new RuntimeException("User ID is empty");
+        }
+        members.put(user.getId(), true);
     }
 
-    public void removeMember(String memberName)
-    {
-        members.remove(memberName);
+    public void removeMember(User user) {
+        if (user.getId().isEmpty()) {
+            throw new RuntimeException("User ID is empty");
+        }
+        members.remove(user.getId());
     }
 }
