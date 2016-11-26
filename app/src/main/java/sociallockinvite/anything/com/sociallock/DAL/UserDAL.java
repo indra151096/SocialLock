@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import sociallockinvite.anything.com.sociallock.Model.Group;
 import sociallockinvite.anything.com.sociallock.Model.User;
@@ -44,6 +45,7 @@ public class UserDAL {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
+                            String fcmToken = FirebaseInstanceId.getInstance().getToken();
 
                             if (userAuth != null) {
                                 DatabaseReference userRef = mUsers.child(userAuth.getUid());
@@ -57,6 +59,10 @@ public class UserDAL {
                                 user.setEmail(email);
                                 user.setGroup(group.getId());
                                 user.addGroupsIn(group);
+
+                                if (fcmToken != null) {
+                                    user.setFcmToken(fcmToken);
+                                }
 
                                 group.setHost(user.getId());
                                 group.addMember(user);
@@ -82,6 +88,12 @@ public class UserDAL {
                         if (!task.isSuccessful()) {
                             Toast.makeText(activity, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        } else {
+                            String fcmToken = FirebaseInstanceId.getInstance().getToken();
+
+                            if (fcmToken != null) {
+                                updateFCMToken(fcmToken);
+                            }
                         }
                     }
                 });
@@ -89,5 +101,20 @@ public class UserDAL {
 
     public void userSignOut() {
         mAuth.signOut();
+    }
+
+    public void updateFCMToken(final String fcmToken) {
+        FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (userAuth != null) {
+            final String userId = userAuth.getUid();
+            DatabaseReference userRef = mUsers.child(userId);
+
+            userRef.child("fcmToken").setValue(fcmToken);
+        }
+    }
+
+    public Boolean isSignedIn() {
+        return FirebaseAuth.getInstance().getCurrentUser() != null;
     }
 }

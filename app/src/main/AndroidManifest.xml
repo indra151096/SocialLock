@@ -17,17 +17,13 @@
         </activity>
 
         <service
-            android:name=".Service.FirebaseTokenHandler"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".Service.FirebaseTokenHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
         <service
-            android:name=".Service.FirebaseMessageHandler"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".Service.FirebaseMessageHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
