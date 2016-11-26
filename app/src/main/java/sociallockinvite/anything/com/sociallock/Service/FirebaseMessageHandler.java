@@ -23,6 +23,12 @@ public class FirebaseMessageHandler extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
+        final String groupId = remoteMessage.getFrom().substring(8);
+        final String email = remoteMessage.getNotification().getBody().substring(18);
+
+        Log.d(TAG, groupId);
+        Log.d(TAG, email);
+
         startLockRequestActivity();
     }
 
