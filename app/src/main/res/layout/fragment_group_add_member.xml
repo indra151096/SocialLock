@@ -12,7 +12,8 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/txtEmail"
-        android:hint="Friend's email"/>
+        android:hint="Friend's email"
+        />
 
     <Button
         android:text="Add Member"
@@ -21,8 +22,15 @@
         android:id="@+id/btnAddMember"/>
 
     <Button
+        android:text="Dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDashboard"/>
+
+    <Button
         android:text="Sign Out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnSignOut"/>
+
 </LinearLayout>
