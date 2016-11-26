@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.R;
 
 /**
@@ -15,6 +17,10 @@ import sociallockinvite.anything.com.sociallock.R;
  * status bar and navigation/system bar) with user interaction.
  */
 public class LockRequest extends AppCompatActivity {
+    private static final String TAG = LockRequest.class.getCanonicalName();
+
+    private UserDAL mUserDAL;
+
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -104,11 +110,33 @@ public class LockRequest extends AppCompatActivity {
 //            }
 //        });
 
+        mUserDAL = new UserDAL();
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.btnLockYes).setOnTouchListener(mDelayHideTouchListener);
-        findViewById(R.id.btnLockNo).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.btnYes).setOnTouchListener(mDelayHideTouchListener);
+        findViewById(R.id.btnNo).setOnTouchListener(mDelayHideTouchListener);
+
+        findViewById(R.id.btnYes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "Yes accept");
+
+
+                finish();
+            }
+        });
+
+        findViewById(R.id.btnNo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "No accept");
+
+
+                finish();
+            }
+        });
     }
 
     @Override

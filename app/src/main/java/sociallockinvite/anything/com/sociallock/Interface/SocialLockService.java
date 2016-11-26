@@ -10,4 +10,8 @@ public interface SocialLockService {
     @FormUrlEncoded
     @POST("social/sendSocialLock.php")
     Call<ResponseBody> sendLockRequest(@Field("topic") String topic, @Field("message") String message);
+
+    @FormUrlEncoded
+    @POST("social/")
+    Call<ResponseBody> replyLockRequest();
 }

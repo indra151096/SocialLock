@@ -21,6 +21,12 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import sociallockinvite.anything.com.sociallock.Interface.SocialLockService;
 import sociallockinvite.anything.com.sociallock.Model.Group;
 import sociallockinvite.anything.com.sociallock.Model.User;
 
@@ -156,5 +162,29 @@ public class UserDAL {
                 }
             });
         }
+    }
+
+    public void lockRequestReply(final boolean unlock) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://indra151096.com/")
+                .build();
+
+        SocialLockService service = retrofit.create(SocialLockService.class);
+
+        Call<ResponseBody> result = service.replyLockRequest();
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+        throw new RuntimeException("Not implemented");
     }
 }

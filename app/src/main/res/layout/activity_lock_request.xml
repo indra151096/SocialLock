@@ -27,7 +27,7 @@
         android:background="@android:color/background_light"/>
 
     <Button
-        android:id="@+id/btnLockYes"
+        android:id="@+id/btnYes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -36,7 +36,7 @@
         android:background="@android:color/holo_green_light"/>
 
     <Button
-        android:id="@+id/btnLockNo"
+        android:id="@+id/btnNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
