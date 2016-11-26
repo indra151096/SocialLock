@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "316992828883",
+    "firebase_url": "https://sociallock-21731.firebaseio.com",
+    "project_id": "sociallock-21731",
+    "storage_bucket": "sociallock-21731.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316992828883:android:9f1b779836dc7aa3",
+        "android_client_info": {
+          "package_name": "sociallockinvite.anything.com.sociallock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316992828883-i2i9p43317q9det7as7a7ennf5np5edr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sociallockinvite.anything.com.sociallock",
+            "certificate_hash": "A174DDC53251B693AA1F8E301ECA0DFCEAC2EBE4"
+          }
+        },
+        {
+          "client_id": "316992828883-nid85pfjurim6d09ocstcsj5fui2qjkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHsJcu_0zGriNYwnpY7mq-oIOS2Rs9WJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316992828883-nid85pfjurim6d09ocstcsj5fui2qjkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
