@@ -76,7 +76,7 @@ public class GroupDAL {
                 });
     }
 
-    public void broadcastLockRequest(final String message) {
+    public void broadcastLockRequest(boolean unlock) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://indra151096.com/")
                 .build();
@@ -88,6 +88,7 @@ public class GroupDAL {
         if (userAuth != null) {
             final String userId = userAuth.getUid();
             DatabaseReference userRef = mUsers.child(userId);
+            final String message = (unlock ? "Unlock" : "Lock") + " request from " + userId;
 
             userRef.child("group").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
