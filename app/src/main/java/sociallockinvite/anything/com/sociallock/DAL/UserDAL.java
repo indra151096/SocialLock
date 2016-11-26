@@ -1,4 +1,4 @@
-package sociallockinvite.anything.com.sociallock.Service;
+package sociallockinvite.anything.com.sociallock.DAL;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -24,13 +24,13 @@ import sociallockinvite.anything.com.sociallock.Model.User;
  * Handles all user CRUD using Firebase as the backend
  */
 
-public class UserService {
+public class UserDAL {
     private FirebaseAuth mAuth;
     private DatabaseReference mUsers;
     private DatabaseReference mGroups;
     private DatabaseReference mUsersIndex;
 
-    public UserService() {
+    public UserDAL() {
         mAuth = FirebaseAuth.getInstance();
         mUsers = FirebaseDatabase.getInstance().getReference("users");
         mGroups = FirebaseDatabase.getInstance().getReference("groups");

@@ -1,4 +1,4 @@
-package sociallockinvite.anything.com.sociallock.Service;
+package sociallockinvite.anything.com.sociallock.DAL;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,12 +19,12 @@ import sociallockinvite.anything.com.sociallock.Model.User;
  * Handles all group CRUD using Firebase as the backend
  */
 
-public class GroupService {
+public class GroupDAL {
     private DatabaseReference mUsers;
     private DatabaseReference mGroups;
     private DatabaseReference mUsersIndex;
 
-    public GroupService() {
+    public GroupDAL() {
         mUsers = FirebaseDatabase.getInstance().getReference("users");
         mGroups = FirebaseDatabase.getInstance().getReference("groups");
         mUsersIndex = FirebaseDatabase.getInstance().getReference("usersIndex");

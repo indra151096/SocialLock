@@ -9,14 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import sociallockinvite.anything.com.sociallock.DAL.GroupDAL;
+import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.Interface.DashboardSwitcherListener;
 import sociallockinvite.anything.com.sociallock.R;
-import sociallockinvite.anything.com.sociallock.Service.GroupService;
-import sociallockinvite.anything.com.sociallock.Service.UserService;
 
 public class GroupAddMember extends Fragment {
-    private UserService mUserService;
-    private GroupService mGroupService;
+    private UserDAL mUserDAL;
+    private GroupDAL mGroupDAL;
 
     private EditText mTxtEmail;
 
@@ -30,8 +30,8 @@ public class GroupAddMember extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUserService = new UserService();
-        mGroupService = new GroupService();
+        mUserDAL = new UserDAL();
+        mGroupDAL = new GroupDAL();
     }
 
     @Override
@@ -48,14 +48,14 @@ public class GroupAddMember extends Fragment {
         btnAddMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGroupService.addMemberToGroup(mTxtEmail.getText().toString());
+                mGroupDAL.addMemberToGroup(mTxtEmail.getText().toString());
             }
         });
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUserService.userSignOut();
+                mUserDAL.userSignOut();
             }
         });
 
