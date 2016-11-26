@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.Interface.DashboardSwitcherListener;
 import sociallockinvite.anything.com.sociallock.R;
 
 public class MainActivity extends AppCompatActivity implements DashboardSwitcherListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private UserDAL mUserDAL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +42,15 @@ public class MainActivity extends AppCompatActivity implements DashboardSwitcher
                 }
             }
         };
+
+        mUserDAL = new UserDAL();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        mUserDAL.subscribeToTopic();
     }
 
     @Override

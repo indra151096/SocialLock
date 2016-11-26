@@ -16,18 +16,23 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".Service.FirebaseTokenHandler">
+        <service android:name=".Service.FirebaseTokenHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-        <service
-            android:name=".Service.FirebaseMessageHandler">
+        <service android:name=".Service.FirebaseMessageHandler">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".View.LockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
+        </activity>
     </application>
 
 </manifest>
