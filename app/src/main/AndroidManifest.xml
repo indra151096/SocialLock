@@ -2,8 +2,11 @@
 <manifest package="sociallockinvite.anything.com.sociallock"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
+
     <application
         android:allowBackup="true"
+        android:name=".integrated.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -14,6 +17,41 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <service android:name=".Service.FirebaseTokenHandler">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".Service.FirebaseMessageHandler">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".integrated.scan" />
+        <activity android:name=".integrated.ok"></activity>
+
+        <activity
+            android:name=".View.LockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity
+            android:name=".View.UnlockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity
+            android:name=".View.MemberUnlockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
         </activity>
     </application>
 
