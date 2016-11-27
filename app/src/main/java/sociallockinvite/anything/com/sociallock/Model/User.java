@@ -16,6 +16,7 @@ public class User {
     private String id;
     private String email;
     private String group;
+    private String fcmToken;
     private Map<String, Boolean> groupsIn = new HashMap<>();
 
     public String getId() {
@@ -40,6 +41,14 @@ public class User {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     public Map<String, Boolean> getGroupsIn() {

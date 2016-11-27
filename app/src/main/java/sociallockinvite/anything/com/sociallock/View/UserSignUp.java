@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.R;
-import sociallockinvite.anything.com.sociallock.Service.UserService;
 
 public class UserSignUp extends Fragment {
-    private UserService mUserService;
+    private UserDAL mUserDAL;
 
     private EditText mTxtEmail;
     private EditText mTxtPassword;
@@ -25,7 +25,7 @@ public class UserSignUp extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mUserService = new UserService();
+        mUserDAL = new UserDAL();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserSignUp extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUserService.createNewUser(mTxtEmail.getText().toString(),
+                mUserDAL.createNewUser(mTxtEmail.getText().toString(),
                         mTxtPassword.getText().toString(), getActivity());
             }
         });
@@ -50,7 +50,7 @@ public class UserSignUp extends Fragment {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUserService.userSignIn(mTxtEmail.getText().toString(),
+                mUserDAL.userSignIn(mTxtEmail.getText().toString(),
                         mTxtPassword.getText().toString(), getActivity());
             }
         });

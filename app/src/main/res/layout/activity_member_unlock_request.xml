@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="sociallockinvite.anything.com.sociallock.View.MemberUnlockRequest"
+              android:background="@android:color/background_light">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+
+    <TextView
+        android:text="{GROUP MEMBER} is requesting to unlock phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDescription"
+        android:layout_weight="0.1"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:textStyle="normal|bold"
+        android:textColor="@color/colorAccent"
+        android:background="@android:color/background_light"/>
+
+    <Button
+        android:id="@+id/btnYes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="YES"
+        android:textSize="48sp"
+        android:background="@android:color/holo_green_light"/>
+
+    <Button
+        android:id="@+id/btnNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="No"
+        android:textSize="48sp"
+        android:background="@android:color/holo_red_light"/>
+</LinearLayout>
