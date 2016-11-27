@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="sociallockinvite.anything.com.sociallock.View.LockRequest"
+              tools:context="sociallockinvite.anything.com.sociallock.View.MemberUnlockRequest"
               android:background="@android:color/background_light">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -14,7 +14,7 @@
          android:fitsSystemWindows. -->
 
     <TextView
-        android:text="{HOST_NAME} is requesting to lock your phone"
+        android:text="{GROUP MEMBER} is requesting to unlock phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnDescription"

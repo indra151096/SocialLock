@@ -1,6 +1,8 @@
 package sociallockinvite.anything.com.sociallock.DAL;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,8 +23,17 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import sociallockinvite.anything.com.sociallock.Common.Constants;
+import sociallockinvite.anything.com.sociallock.Interface.SocialLockService;
 import sociallockinvite.anything.com.sociallock.Model.Group;
 import sociallockinvite.anything.com.sociallock.Model.User;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * User service provider
@@ -156,5 +167,168 @@ public class UserDAL {
                 }
             });
         }
+    }
+
+    public void memberToHostUnlockRequest(Context context) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://indra151096.com/")
+                .build();
+
+        final SocialLockService service = retrofit.create(SocialLockService.class);
+
+        SharedPreferences social = context.getSharedPreferences("social", MODE_PRIVATE);
+        final String groupId = social.getString("groupId", "");
+
+        FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (userAuth != null) {
+            final String userId = userAuth.getUid();
+
+            mGroups.child(groupId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String hostId = dataSnapshot.child("host").getValue(String.class);
+
+                    mUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            final String myEmail = dataSnapshot.child("email").getValue(String.class);
+                            final String message = Constants.MEMBER_TO_HOST_UNLOCK_REQUEST + "," + myEmail + "," + hostId;
+
+                            mUsers.child(hostId)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            final String hostToken = dataSnapshot.child("fcmToken").getValue(String.class);
+
+                                            Call<ResponseBody> result = service.replyLockRequest(hostToken, message);
+
+                                            result.enqueue(new Callback<ResponseBody>() {
+                                                @Override
+                                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                    if (response.isSuccessful()) {
+                                                        Log.d(TAG, "Sent HTTP POST request to " + hostToken);
+                                                    } else {
+                                                        Log.w(TAG, "Sent HTTP POST request --- not successful");
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                    t.printStackTrace();
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    public void hostToMemberUnlockReply(final boolean yes, Context context) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://indra151096.com/")
+                .build();
+
+        final SocialLockService service = retrofit.create(SocialLockService.class);
+
+        SharedPreferences social = context.getSharedPreferences("social", MODE_PRIVATE);
+        final String recipientEmail = social.getString("email", "");
+
+        FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (userAuth != null) {
+            final String userId = userAuth.getUid();
+
+            mUsers.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final String myEmail = dataSnapshot.child("email").getValue(String.class);
+                    final String message = (yes
+                            ? Constants.HOST_TO_MEMBER_UNLOCK_REPLY_YES
+                            : Constants.HOST_TO_MEMBER_UNLOCK_REPLY_NO) + "," + myEmail + "," + userId;
+
+                    mUsersIndex.child(recipientEmail.replace(".", "%20"))
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    final String recipientId = dataSnapshot.getValue(String.class);
+
+                                    mUsers.child(recipientId)
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    final String recipientToken = dataSnapshot.child("fcmToken").getValue(String.class);
+
+                                                    Call<ResponseBody> result = service.replyLockRequest(recipientToken, message);
+
+                                                    result.enqueue(new Callback<ResponseBody>() {
+                                                        @Override
+                                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                            if (response.isSuccessful()) {
+                                                                Log.d(TAG, "Sent HTTP POST request to " + recipientToken);
+                                                            } else {
+                                                                Log.w(TAG, "Sent HTTP POST request --- not successful");
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                            t.printStackTrace();
+                                                        }
+                                                    });
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    public boolean amIHost(Context context) {
+        FirebaseUser userAuth = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (userAuth != null) {
+            SharedPreferences social = context.getSharedPreferences("social", MODE_PRIVATE);
+            final String userId = userAuth.getUid();
+            final String hostId = social.getString("hostId", "");
+            return userId.equals(hostId);
+        }
+
+        return false;
     }
 }

@@ -12,16 +12,14 @@ import android.view.View;
 
 import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.R;
-import sociallockinvite.anything.com.sociallock.integrated.MyApplication;
-import sociallockinvite.anything.com.sociallock.integrated.ok;
 import sociallockinvite.anything.com.sociallock.integrated.scan;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class LockRequest extends AppCompatActivity {
-    private static final String TAG = LockRequest.class.getCanonicalName();
+public class UnlockRequest extends AppCompatActivity {
+    private static final String TAG = UnlockRequest.class.getCanonicalName();
 
     private UserDAL mUserDAL;
 
@@ -99,7 +97,7 @@ public class LockRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_lock_request);
+        setContentView(R.layout.activity_unlock_request);
 
         mVisible = true;
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -126,10 +124,8 @@ public class LockRequest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Yes accept");
-                startService(new Intent(LockRequest.this, scan.class));
-                MyApplication.beaconStop();
-                Intent i = new Intent(getApplicationContext(), ok.class);
-                startActivity(i);
+                stopService(new Intent(UnlockRequest.this, scan.class));
+                //// TODO: 27/11/2016 destroy lock activity(ok) 
                 finish();
             }
         });
