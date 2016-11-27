@@ -72,7 +72,8 @@ public class scan extends Service {
                     packageName = getForegroundApp();
                     if (!(packageName.equals("com.android.dialer") || packageName.equals("sociallockinvite.anything.com.sociallock")
                             || packageName.equals("com.android.systemui") || packageName.equals("com.google.android.apps.nexuslauncher")
-                    || packageName.equals("com.miui.home") || packageName.equals("com.android.contacts")))
+                            || packageName.equals("com.miui.home") || packageName.equals("com.android.contacts")
+                            || packageName.equals("com.sonyericsson.android.socialphonebook")))
                     {
                         showHomeScreen();
                     }

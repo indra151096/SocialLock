@@ -12,6 +12,6 @@ public interface SocialLockService {
     Call<ResponseBody> sendLockRequest(@Field("topic") String topic, @Field("message") String message);
 
     @FormUrlEncoded
-    @POST("social/")
-    Call<ResponseBody> replyLockRequest();
+    @POST("social/sendSocialLockPersonal.php")
+    Call<ResponseBody> replyLockRequest(@Field("topic") String topic, @Field("message") String message);
 }

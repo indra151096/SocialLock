@@ -39,6 +39,20 @@
             android:label="@string/title_activity_lock_request"
             android:theme="@style/FullscreenTheme">
         </activity>
+
+        <activity
+            android:name=".View.UnlockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
+        </activity>
+
+        <activity
+            android:name=".View.MemberUnlockRequest"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_lock_request"
+            android:theme="@style/FullscreenTheme">
+        </activity>
     </application>
 
 </manifest>

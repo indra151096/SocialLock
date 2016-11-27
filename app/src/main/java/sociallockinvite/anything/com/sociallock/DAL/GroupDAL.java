@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import sociallockinvite.anything.com.sociallock.Common.Constants;
 import sociallockinvite.anything.com.sociallock.Interface.SocialLockService;
 import sociallockinvite.anything.com.sociallock.Model.User;
 
@@ -76,7 +77,7 @@ public class GroupDAL {
                 });
     }
 
-    public void broadcastLockRequest(final boolean unlock) {
+    public void hostToGroupLockBroadcast(final boolean lock) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://indra151096.com/")
                 .build();
@@ -93,8 +94,10 @@ public class GroupDAL {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     final String groupId = dataSnapshot.child("group").getValue(String.class);
-                    final String email = dataSnapshot.child("email").getValue(String.class);
-                    final String message = (unlock ? "Unlock" : "Lock") + " request from " + email;
+                    final String hostEmail = dataSnapshot.child("email").getValue(String.class);
+                    final String message = (lock
+                            ? Constants.HOST_TO_GROUP_LOCK_BROADCAST
+                            : Constants.HOST_TO_GROUP_UNLOCK_BROADCAST) + "," + hostEmail + "," + userId;
 
                     Call<ResponseBody> result = service.sendLockRequest(groupId, message);
 

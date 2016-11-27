@@ -1,7 +1,6 @@
 package sociallockinvite.anything.com.sociallock.View;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -12,16 +11,13 @@ import android.view.View;
 
 import sociallockinvite.anything.com.sociallock.DAL.UserDAL;
 import sociallockinvite.anything.com.sociallock.R;
-import sociallockinvite.anything.com.sociallock.integrated.MyApplication;
-import sociallockinvite.anything.com.sociallock.integrated.ok;
-import sociallockinvite.anything.com.sociallock.integrated.scan;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class LockRequest extends AppCompatActivity {
-    private static final String TAG = LockRequest.class.getCanonicalName();
+public class MemberUnlockRequest extends AppCompatActivity {
+    private static final String TAG = MemberUnlockRequest.class.getCanonicalName();
 
     private UserDAL mUserDAL;
 
@@ -99,7 +95,7 @@ public class LockRequest extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_lock_request);
+        setContentView(R.layout.activity_member_unlock_request);
 
         mVisible = true;
 //        mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -126,10 +122,7 @@ public class LockRequest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Yes accept");
-                startService(new Intent(LockRequest.this, scan.class));
-                MyApplication.beaconStop();
-                Intent i = new Intent(getApplicationContext(), ok.class);
-                startActivity(i);
+                mUserDAL.hostToMemberUnlockReply(true, getApplicationContext());
                 finish();
             }
         });
@@ -138,6 +131,7 @@ public class LockRequest extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "No accept");
+                mUserDAL.hostToMemberUnlockReply(false, getApplicationContext());
                 finish();
             }
         });

@@ -40,14 +40,14 @@ public class GroupDashboard extends Fragment {
         btnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGroupDAL.broadcastLockRequest(false);
+                mGroupDAL.hostToGroupLockBroadcast(true);
             }
         });
 
         btnUnlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGroupDAL.broadcastLockRequest(true);
+                mGroupDAL.hostToGroupLockBroadcast(false);
             }
         });
 

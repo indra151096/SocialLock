@@ -1,20 +1,33 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="sociallockinvite.anything.com.sociallock.View.GroupDashboard">
 
+    <ImageView
+        android:layout_width="180sp"
+        android:layout_height="180sp"
+
+        app:srcCompat="@drawable/sociallock"
+        android:id="@+id/imageView2"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.1"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"/>
+        android:layout_weight="10"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_weight="0.1">
 
         <Button
             android:text="Lock"
@@ -35,4 +48,4 @@
             android:id="@+id/btnAddMember"/>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
